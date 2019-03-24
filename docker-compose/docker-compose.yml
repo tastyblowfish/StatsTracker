@@ -1,0 +1,55 @@
+version: '3'
+
+networks:
+  dockernet:
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    networks:
+      - 'dockernet'
+    environment:
+      - POSTGRES_PASSWORD=underpar
+      - POSTGRES_USER=statsadmin
+      - POSTGRES_DB=statstracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/data/pg-node-statstracker:/var/lib/postgresql/data
+  
+  nginx:
+    image: nginx:1.13
+    container_name: nginx
+    networks:
+      - 'dockernet'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/proxy.conf:/etc/nginx/conf.d/proxy.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+  
+  stats-client:
+    image: stats-client
+    container_name: stats-client
+    tty: true
+    networks:
+      - 'dockernet'
+    ports:
+      - "8080:8080"
+
+  stats-api:
+    image: stats-api
+    container_name: stats-api
+    tty: true
+    networks:
+      - 'dockernet'
+    environment:
+      - "APP_URL=golf.statstracker.com"
+      - "CACHE_DURATION=100"
+      - "TIMEOUT_VALUE=100"
+    ports:
+      - "3000:3000"
+    command: bash -c 'npm run start'
+  

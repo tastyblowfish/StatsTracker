@@ -1,0 +1,110 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  stats.conf: |
+    # -*- mode: nginx -*-
+    server {
+      server_name www.statstracker.golf;
+      listen 80;
+
+      location /health {
+        access_log off;
+        return 200 "{'status': 'UP'}";
+      }
+
+      location / {
+        proxy_pass http://gateway.stats;
+      }
+    }
+kind: ConfigMap
+metadata:
+  name: stats-config
+  namespace: default
+---
+apiVersion: v1
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+    events {
+        worker_connections  1024;
+    }
+
+
+    http {
+        client_max_body_size 1000M;
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        proxy_headers_hash_max_size 4112;
+        proxy_headers_hash_bucket_size 128;
+        
+        map $http_x_request_id $reqid {                                                 
+            default   $http_x_request_id;                                               
+            ""        $request_id;                                                      
+        }
+
+        log_format  main  escape=json  '{ \"request_id\": \"$reqid\", '
+                          '\"remote_address\": \"$remote_addr\", '
+                          '\"timestamp\": \"$time_local\", \"request\": \"$request\", '
+                          '\"status\": \"$status\", \"bytes_sent\": \"$body_bytes_sent\", \"http_referer\": \"$http_referer\", '
+                          '\"http_user_agent\": \"$http_user_agent\", \"http_x_forwarded_for\": \"$http_x_forwarded_for\", '
+                          '\"upstream_response_time\": \"$upstream_response_time\", '
+                          '\"upstream_connect_time\": \"$upstream_connect_time\", '
+                          '\"upstream_header_time\": \"$upstream_header_time\", '
+                          '\"request_time\": \"$request_time\" '
+                          '}';                      
+
+        access_log  /var/log/nginx/access.log  main;
+
+        sendfile        on;
+
+        keepalive_timeout           65;
+        proxy_connect_timeout       300;
+        proxy_send_timeout          300;
+        proxy_read_timeout          300;
+        send_timeout                300;
+
+        include /etc/nginx/conf.d/*.conf;
+    }
+  proxy.conf: |
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Request-ID $request_id;
+    proxy_set_header HOST $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_redirect off;
+  default.conf: |
+    # -*- mode: nginx -*-
+    server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+      server_name www.statstracker.golf;
+      try_files $uri $uri/index.html @app;
+      
+      location /health {
+        access_log off;
+        return 200 "{'status': 'UP'}";
+      }
+
+      location @app {
+        proxy_pass http://client:8080;
+      }
+
+      location ~ ^/(api|doc) {
+        proxy_pass http://api:3000;
+      }
+    }
+kind: ConfigMap
+metadata:
+  name: stats-config
+  namespace: stats
