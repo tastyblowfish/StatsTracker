@@ -5,7 +5,7 @@ import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PlayerModule } from './players/player.module';
-import { UserModule } from './users/user.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { UserModule } from './users/user.module';
       synchronize: true,
     }),
     AuthModule,
-    UserModule,
+    UsersModule,
     PlayerModule,
   ],
   controllers: [AppController],

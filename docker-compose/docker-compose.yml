@@ -30,7 +30,7 @@ services:
     ports:
       - "80:80"
   
-  stats-client:
+  client:
     image: stats-client
     container_name: stats-client
     tty: true
@@ -39,7 +39,7 @@ services:
     ports:
       - "8080:8080"
 
-  stats-api:
+  api:
     image: stats-api
     container_name: stats-api
     tty: true
