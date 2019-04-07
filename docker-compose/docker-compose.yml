@@ -46,7 +46,7 @@ services:
     networks:
       - 'dockernet'
     environment:
-      - "APP_URL=golf.statstracker.com"
+      - "APP_URL=www.statstracker.golf"
       - "CACHE_DURATION=100"
       - "TIMEOUT_VALUE=100"
     ports:

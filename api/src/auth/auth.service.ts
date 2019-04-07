@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 
@@ -10,17 +10,16 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(body): Promise<any> {
-    return await this.usersService.findOneByEmail(body.email);
-  }
-
-  async createToken() {
-    const user: JwtPayload = { email: 'david.m.caldwell@gmail.com' };
-    const accessToken = this.jwtService.sign(user);
-    return {
-      expiresIn: 3600,
-      accessToken,
-    };
+  async signIn(payload): Promise<string> {
+    let token = null;
+    await this.validateUser(payload)
+      .then(res => { 
+        if (res.length > 0) {
+          const user: JwtPayload = { email: res[0].email };
+          token = this.jwtService.sign(user);
+        }
+      });
+    return token;
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
