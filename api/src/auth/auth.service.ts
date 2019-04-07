@@ -14,15 +14,14 @@ export class AuthService {
     let token = null;
     await this.validateUser(payload)
       .then(res => { 
-        if (res.length > 0) {
-          const user: JwtPayload = { email: res[0].email };
-          token = this.jwtService.sign(user);
+        if (res) {
+          token = this.jwtService.sign(payload);
         }
       });
     return token;
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
-    return await this.usersService.findOneByEmail(payload.email);
+    return await this.usersService.find(payload);
   }
 }

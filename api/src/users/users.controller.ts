@@ -17,13 +17,13 @@ export class UsersController {
 
   @Get('user/:id')
   @UseGuards(AuthGuard())
-  findById(@Param('id') id): Promise<User[]> {
+  findById(@Param('id') id): Promise<User> {
     return this.userService.findById(id);
   }
 
   @Get('user/email/:email')
   @UseGuards(AuthGuard())
-  findOneByEmail(@Param('email') email): Promise<User[]> {
+  findOneByEmail(@Param('email') email): Promise<User> {
     return this.userService.findOneByEmail(email);
   }
 }
