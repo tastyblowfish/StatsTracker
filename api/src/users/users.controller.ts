@@ -1,7 +1,7 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from './users.service';
-import { User } from './users.entity';
+import { Users } from '../entities/Users';
 
 @Controller()
 export class UsersController {
@@ -11,19 +11,19 @@ export class UsersController {
 
   @Get('/users')
   @UseGuards(AuthGuard())
-  findAll(): Promise<User[]> {
+  findAll(): Promise<Users[]> {
     return this.userService.findAll();
   }
 
   @Get('user/:id')
   @UseGuards(AuthGuard())
-  findById(@Param('id') id): Promise<User> {
+  findById(@Param('id') id): Promise<Users> {
     return this.userService.findById(id);
   }
 
   @Get('user/email/:email')
   @UseGuards(AuthGuard())
-  findOneByEmail(@Param('email') email): Promise<User> {
+  findOneByEmail(@Param('email') email): Promise<Users> {
     return this.userService.findOneByEmail(email);
   }
 }

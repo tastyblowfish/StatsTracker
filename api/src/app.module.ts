@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PlayerModule } from './players/player.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -16,12 +15,11 @@ import { UsersModule } from './users/users.module';
       username: 'statsadmin',
       password: 'underpar',
       database: 'statstracker',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      entities: [__dirname + '/entities/*.ts'],
+      synchronize: false,
     }),
     AuthModule,
     UsersModule,
-    PlayerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
