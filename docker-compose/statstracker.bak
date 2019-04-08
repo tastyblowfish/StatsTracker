@@ -1,0 +1,452 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
+-- Dumped by pg_dump version 11.2
+
+-- Started on 2019-04-08 12:07:47 EDT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 198 (class 1259 OID 24821)
+-- Name: GolfClubs; Type: TABLE; Schema: public; Owner: statsadmin
+--
+
+CREATE TABLE public."GolfClubs" (
+    facility_id text NOT NULL,
+    club_name text,
+    club_membership text,
+    number_of_holes text,
+    address text,
+    city text,
+    state text,
+    country text,
+    postal_code text,
+    phone text,
+    fax text,
+    website text,
+    longitude text,
+    latitude text,
+    contact_name text,
+    contact_title text,
+    email_address text,
+    driving_range text,
+    putting_green text,
+    chipping_green text,
+    practice_bunker text,
+    motor_cart text,
+    pull_cart text,
+    golf_clubs_rental text,
+    club_fitting text,
+    pro_shop text,
+    golf_lessons text,
+    caddie_hire text,
+    restaurant text,
+    reception_hall text,
+    changing_room text,
+    lockers text,
+    lodging_on_site text
+);
+
+
+ALTER TABLE public."GolfClubs" OWNER TO statsadmin;
+
+--
+-- TOC entry 200 (class 1259 OID 24837)
+-- Name: GolfCourseTees; Type: TABLE; Schema: public; Owner: statsadmin
+--
+
+CREATE TABLE public."GolfCourseTees" (
+    tee_id text NOT NULL,
+    course_id text,
+    tee_name text,
+    tee_color text,
+    course_par_for_tee text,
+    rating text,
+    slope text,
+    hole1 text,
+    hole2 text,
+    hole3 text,
+    hole4 text,
+    hole5 text,
+    hole6 text,
+    hole7 text,
+    hole8 text,
+    hole9 text,
+    hole10 text,
+    hole11 text,
+    hole12 text,
+    hole13 text,
+    hole14 text,
+    hole15 text,
+    hole16 text,
+    hole17 text,
+    hole18 text,
+    total_distance text,
+    hole1_par text,
+    hole2_par text,
+    hole3_par text,
+    hole4_par text,
+    hole5_par text,
+    hole6_par text,
+    hole7_par text,
+    hole8_par text,
+    hole9_par text,
+    hole10_par text,
+    hole11_par text,
+    hole12_par text,
+    hole13_par text,
+    hole14_par text,
+    hole15_par text,
+    hole16_par text,
+    hole17_par text,
+    hole18_par text,
+    hole1_handicap text,
+    hole2_handicap text,
+    hole3_handicap text,
+    hole4_handicap text,
+    hole5_handicap text,
+    hole6_handicap text,
+    hole7_handicap text,
+    hole8_handicap text,
+    hole9_handicap text,
+    hole10_handicap text,
+    hole11_handicap text,
+    hole12_handicap text,
+    hole13_handicap text,
+    hole14_handicap text,
+    hole15_handicap text,
+    hole16_handicap text,
+    hole17_handicap text,
+    hole18_handicap text
+);
+
+
+ALTER TABLE public."GolfCourseTees" OWNER TO statsadmin;
+
+--
+-- TOC entry 199 (class 1259 OID 24829)
+-- Name: GolfCourses; Type: TABLE; Schema: public; Owner: statsadmin
+--
+
+CREATE TABLE public."GolfCourses" (
+    course_id text NOT NULL,
+    facility_id text,
+    course_name text,
+    holes text,
+    par text,
+    course_type text,
+    course_architect text,
+    open_date text,
+    guest_policy text,
+    weekday_price text,
+    weekend_price text,
+    twilight_price text,
+    fairway text,
+    green text,
+    currency text
+);
+
+
+ALTER TABLE public."GolfCourses" OWNER TO statsadmin;
+
+--
+-- TOC entry 201 (class 1259 OID 24845)
+-- Name: UserTypes; Type: TABLE; Schema: public; Owner: statsadmin
+--
+
+CREATE TABLE public."UserTypes" (
+    id integer NOT NULL,
+    name character varying(500) NOT NULL
+);
+
+
+ALTER TABLE public."UserTypes" OWNER TO statsadmin;
+
+--
+-- TOC entry 197 (class 1259 OID 24812)
+-- Name: Users; Type: TABLE; Schema: public; Owner: statsadmin
+--
+
+CREATE TABLE public."Users" (
+    id integer NOT NULL,
+    name character varying(500) NOT NULL,
+    active boolean NOT NULL,
+    username text NOT NULL,
+    password text NOT NULL,
+    email text NOT NULL,
+    type integer NOT NULL
+);
+
+
+ALTER TABLE public."Users" OWNER TO statsadmin;
+
+--
+-- TOC entry 196 (class 1259 OID 24810)
+-- Name: Users_id_seq; Type: SEQUENCE; Schema: public; Owner: statsadmin
+--
+
+CREATE SEQUENCE public."Users_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Users_id_seq" OWNER TO statsadmin;
+
+--
+-- TOC entry 2903 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: Users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: statsadmin
+--
+
+ALTER SEQUENCE public."Users_id_seq" OWNED BY public."Users".id;
+
+
+--
+-- TOC entry 2760 (class 2604 OID 24815)
+-- Name: Users id; Type: DEFAULT; Schema: public; Owner: statsadmin
+--
+
+ALTER TABLE ONLY public."Users" ALTER COLUMN id SET DEFAULT nextval('public."Users_id_seq"'::regclass);
+
+
+--
+-- TOC entry 2894 (class 0 OID 24821)
+-- Dependencies: 198
+-- Data for Name: GolfClubs; Type: TABLE DATA; Schema: public; Owner: statsadmin
+--
+
+COPY public."GolfClubs" (facility_id, club_name, club_membership, number_of_holes, address, city, state, country, postal_code, phone, fax, website, longitude, latitude, contact_name, contact_title, email_address, driving_range, putting_green, chipping_green, practice_bunker, motor_cart, pull_cart, golf_clubs_rental, club_fitting, pro_shop, golf_lessons, caddie_hire, restaurant, reception_hall, changing_room, lockers, lodging_on_site) FROM stdin;
+BHS-AB-0001	Treasure Cay Beach, Marina and Golf Resort	Resort	18	Treasure Cay Road	Treasure Cay	The Abacos	Bahamas	N/D	+1 (800) 327-1584	+1 (954) 525-1699	http://www.treasurecay.com	-77.28828	26.67655	N/D	N/D	info@treasurecay.com	No	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Yes	No	Yes	Yes	Yes	No	Yes
+BRA-AM-0002	Amazonia Golf Resort	Resort	18	Rodovia AM-010, Km 64, Zona Rural	Rio Preto da Eva	Amazonas	Brazil	69115-000	+55 (92) 3637-7000	N/D	www.amazoniagolf.com.br	-59.802006	-2.7178519	N/D	N/D	recepcao@amazoniagolf.com.br	Yes	Yes	No	No	No	Yes	Yes	No	No	Yes	No	Yes	Yes	Yes	No	Yes
+CAN-AL-0001	Fairmont Banff Springs	Resort	27	405 Spray Avenue	Banff	Alberta	Canada	T1L 1J4	+1 (403) 762-6801	+1 (403) 762-0363	http://www.fairmont.com/banff-springs/	-115.54888	51.16805	N/D	N/D	bsh.golfreservations@fairmont.com	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	No	Yes	Yes	Yes	No	Yes
+COL-AN-0004	El Rodeo Sports Club	Semi-Private	36	Calle 41 No 33-595	Rionegro	Antioquia	Colombia	N/D	+57 (4) 444-7666	N/D	www.clubelrodeo.co	-75.596078	6.207104	N/D	N/D	golf@clubelrodeo.co	Yes	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	No	No
+CRC-GU-0001	Four Seasons Resort Costa Rica at Peninsula Papagayo	Resort	18	26Km al Norte del Doit Centre Liberia	Culebra	Guanacaste	Costa Rica	N/D	+506 () 2696 0000	+506 () 2696 0010	www.fourseasons.com/costarica	-85.682313	10.629825	N/D	N/D	N/D	Yes	Yes	No	No	No	Yes	Yes	Yes	Yes	Yes	No	Yes	Yes	Yes	No	Yes
+CUW-CU-0001	Old Quarry Golf Course	Semi-Private	18	Santa Barbara Plantation, Porta Blancu	Nieuwpoort	Curacao	Curacao	N/D	+599 (9) 840 6886	+599 (9) 840 1235	www.oldquarrygolfcuracao.com	-68.850456	12.065319	N/D	N/D	oldquarrygolf@santabarbaraplantation.com	Yes	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	No	No
+DOM-AL-0005	Cocotal Golf & Country Club	Public	27	El Cortecito, Playa Bavaro	Punta Cana	La Altagracia	Dominican Republic	23000	+1 (809) 687-4653	N/D	cocotalgolf.com	-68.423141	18.671663	N/D	N/D	N/D	Yes	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Yes	No	Yes	Yes	Yes	Yes	No
+MEX-QR-0006	El Camaleon Mayakoba Golf Club	Resort	18	Carretera Federal Cancun - Playa del Carmen Km 298	Playa del Carmen	Quintana Roo	México	77710	+52 (984) 206-3088	+52 (984) 206-3077	www.mayakobagolf.com	-87.031285	20.689666	Claudia Montoro	Golf Administrator	claudia.montoro@fairmont.com	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes	Yes
+USA-FL-00011	Amelia Island Plantation	Resort	54	39 Beach Lagoon Road	Amelia Island	Florida	United States of America	32034	+1 (904) 277-5907	+1 (904) 277-5990	http://www.villasofameliaisland.com/play-here/golf	-81.444857	30.564191	Aaron Merritt	Director of Golf	edbowe@gmail.com	Yes	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Yes	No	Yes	Yes	Yes	No	Yes
+USA-IL-00134	Eagle Ridge Golf Club	Resort	63	444 Eagle Ridge Drive	Galena	Illinois	United States of America	61036	+1 (815) 777-2500	+1 (815) 777-4500	www.eagleridge.com	-90.333404	42.390853	N/D	N/D	ermembership@eagleridge.com	Yes	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Yes	No	Yes	Yes	Yes	No	Yes
+\.
+
+
+--
+-- TOC entry 2896 (class 0 OID 24837)
+-- Dependencies: 200
+-- Data for Name: GolfCourseTees; Type: TABLE DATA; Schema: public; Owner: statsadmin
+--
+
+COPY public."GolfCourseTees" (tee_id, course_id, tee_name, tee_color, course_par_for_tee, rating, slope, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13, hole14, hole15, hole16, hole17, hole18, total_distance, hole1_par, hole2_par, hole3_par, hole4_par, hole5_par, hole6_par, hole7_par, hole8_par, hole9_par, hole10_par, hole11_par, hole12_par, hole13_par, hole14_par, hole15_par, hole16_par, hole17_par, hole18_par, hole1_handicap, hole2_handicap, hole3_handicap, hole4_handicap, hole5_handicap, hole6_handicap, hole7_handicap, hole8_handicap, hole9_handicap, hole10_handicap, hole11_handicap, hole12_handicap, hole13_handicap, hole14_handicap, hole15_handicap, hole16_handicap, hole17_handicap, hole18_handicap) FROM stdin;
+BHS-AB-0001-01-01	BHS-AB-0001-01	Blue	Blue	72	N/D	N/D	402	563	390	174	372	385	510	202	414	430	526	208	365	403	146	394	502	423	6809	4	5	4	3	4	4	5	3	4	4	5	3	4	4	3	4	5	4	6	8	14	18	12	4	10	16	2	1	7	15	13	5	17	9	11	3
+BHS-AB-0001-01-02	BHS-AB-0001-01	White	White	72	N/D	N/D	382	538	365	145	347	366	486	183	398	419	503	187	348	389	125	371	483	401	6436	4	5	4	3	4	4	5	3	4	4	5	3	4	4	3	4	5	4	6	8	14	18	12	4	10	16	2	1	7	15	13	5	17	9	11	3
+BHS-AB-0001-01-03	BHS-AB-0001-01	Red	Red	73	N/D	N/D	373	486	351	134	333	311	407	139	339	408	441	177	295	342	115	295	403	334	5683	4	5	4	3	4	4	5	3	4	5	5	3	4	4	3	4	5	4	3	1	13	17	11	9	7	15	5	6	4	12	16	2	18	14	10	8
+BRA-AM-0002-01-01	BRA-AM-0002-01	Branco	White	72	N/D	N/D	79	59	122	44	143	59	104	40	55	74	98	64	50	45	90	75	74	76	1351	4	4	5	3	5	4	4	3	4	4	5	4	3	5	4	4	4	3	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D	N/D
+CAN-AL-0001-01-01	CAN-AL-0001-01	Black	Black	71	N/D	N/D	414	171	528	192	424	373	602	150	501	218	417	442	225	440	475	414	374	578	6938	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-01-02	CAN-AL-0001-01	White	White	71	N/D	N/D	383	147	501	165	391	344	540	125	458	197	389	414	191	411	459	385	337	552	6389	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-01-03	CAN-AL-0001-01	Gold	Gold	71	N/D	N/D	353	127	465	79	359	307	517	91	407	128	357	390	149	354	405	348	314	457	5607	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-01-04	CAN-AL-0001-01	Red	Red	71	N/D	N/D	289	72	405	79	302	240	430	85	320	78	286	317	82	298	282	274	248	391	4478	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-01-05	CAN-AL-0001-01	Yellow (L)	Yellow	71	71.6	137	353	127	465	79	359	307	517	91	407	128	357	390	149	354	405	348	314	457	5607	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-01-06	CAN-AL-0001-01	Red	Red	71	62	103	289	72	405	79	302	240	430	85	320	78	286	317	82	298	282	274	248	391	4478	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-01-07	CAN-AL-0001-01	Red (L)	Red	71	65.6	117	289	72	405	79	302	240	430	85	320	78	286	317	82	298	282	274	248	391	4478	4	3	5	3	4	4	5	3	5	3	4	4	3	4	4	4	4	5	9	15	3	13	5	11	1	17	7	10	12	2	16	8	6	14	18	4
+CAN-AL-0001-02-01	CAN-AL-0001-02	Black	Black	36	35.2	129	381	362	541	190	386	469	400	136	422	~	~	~	~	~	~	~	~	~	3287	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+CAN-AL-0001-02-02	CAN-AL-0001-02	White	White	36	34	126	365	339	507	166	367	433	364	118	404	~	~	~	~	~	~	~	~	~	3063	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+CAN-AL-0001-02-03	CAN-AL-0001-02	Gold	Gold	36	32.7	118	349	316	474	140	355	401	304	102	365	~	~	~	~	~	~	~	~	~	2806	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+CAN-AL-0001-02-04	CAN-AL-0001-02	Red	Red	36	32	114	274	248	364	134	276	316	264	98	278	~	~	~	~	~	~	~	~	~	2252	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+CAN-AL-0001-02-05	CAN-AL-0001-02	Yellow (L)	Yellow	36	35.4	137	349	316	474	140	355	401	304	98	278	~	~	~	~	~	~	~	~	~	2715	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+CAN-AL-0001-02-06	CAN-AL-0001-02	Red	Red	36	30.9	99	274	248	364	134	276	316	264	98	278	~	~	~	~	~	~	~	~	~	2252	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+CAN-AL-0001-02-07	CAN-AL-0001-02	Red (L)	Red	36	32	114	274	248	364	134	276	316	264	98	278	~	~	~	~	~	~	~	~	~	2252	4	4	5	3	4	5	4	3	4	~	~	~	~	~	~	~	~	~	9	11	1	15	7	5	13	17	3	~	~	~	~	~	~	~	~	~
+COL-AN-0004-01-01	COL-AN-0004-01	Blue	Blue	72	73.2	144	351	196	345	581	407	234	441	526	386	377	195	545	223	428	487	547	171	352	6792	4	3	4	5	4	3	4	5	4	4	3	5	3	4	5	5	3	4	17	9	13	1	5	11	7	15	3	14	8	6	12	4	10	2	18	16
+COL-AN-0004-01-02	COL-AN-0004-01	White	White	72	71.7	142	332	185	333	551	385	218	417	499	378	365	184	523	213	372	451	522	149	345	6422	4	3	4	5	4	3	4	5	4	4	3	5	3	4	5	5	3	4	17	9	13	1	5	11	7	15	3	14	8	6	12	4	10	2	18	16
+COL-AN-0004-01-03	COL-AN-0004-01	Gold (L)	Gold	72	76.3	145	332	185	347	551	385	218	408	499	378	365	184	499	207	372	482	544	160	345	6461	4	3	4	5	4	3	4	5	4	4	3	5	3	4	5	5	3	4	17	9	13	1	5	11	7	15	3	14	8	6	12	4	10	2	18	16
+COL-AN-0004-01-04	COL-AN-0004-01	Red (L)	Red	72	72.1	145	280	145	312	457	329	165	372	451	299	331	147	486	159	278	382	461	120	315	5489	4	3	4	5	4	3	4	5	4	4	3	5	3	4	5	5	3	4	17	9	13	1	5	11	7	15	3	14	8	6	12	4	10	2	18	16
+COL-AN-0004-02-01	COL-AN-0004-02	Blue	Blue	72	71.7	132	417	165	380	510	400	365	513	208	420	333	530	411	415	470	216	210	455	390	6808	4	3	4	5	4	4	5	3	4	4	5	4	4	5	3	3	4	4	3	11	1	15	5	13	17	9	7	16	4	2	6	18	14	10	8	12
+COL-AN-0004-02-02	COL-AN-0004-02	White	White	72	70.3	129	405	160	370	500	390	355	507	198	410	325	501	388	344	460	199	190	430	380	6512	4	3	4	5	4	4	5	3	4	4	5	4	4	5	3	3	4	4	3	11	1	15	5	13	17	9	7	16	4	2	6	18	14	10	8	12
+COL-AN-0004-02-03	COL-AN-0004-02	Gold (L)	Gold	72	76.8	142	418	154	370	500	390	355	507	198	410	325	501	388	343	471	208	200	430	380	6548	4	3	4	5	4	4	5	3	4	4	5	4	4	5	3	3	4	4	3	11	1	15	5	13	17	9	7	16	4	2	6	18	14	10	8	12
+COL-AN-0004-02-04	COL-AN-0004-02	Red (L)	Red	72	70.7	124	332	125	340	466	324	316	448	147	341	306	432	296	310	416	180	153	346	326	5604	4	3	4	5	4	4	5	3	4	4	5	4	4	5	3	3	4	4	3	11	1	15	5	13	17	9	7	16	4	2	6	18	14	10	8	12
+CRC-GU-0001-01-01	CRC-GU-0001-01	Black	Black	72	N/D	N/D	543	174	367	538	215	446	133	390	522	433	207	601	468	383	350	305	163	550	6788	5	3	4	5	3	4	3	4	5	4	3	5	4	4	4	4	3	5	7	9	13	15	1	3	17	11	5	6	8	4	2	14	16	18	10	12
+CRC-GU-0001-01-02	CRC-GU-0001-01	Blue	Blue	72	N/D	N/D	527	163	357	526	192	438	125	376	514	421	173	581	452	376	333	295	154	519	6522	5	3	4	5	3	4	3	4	5	4	3	5	4	4	4	4	3	5	7	9	13	15	1	3	17	11	5	6	8	4	2	14	16	18	10	12
+CRC-GU-0001-01-03	CRC-GU-0001-01	White	White	72	N/D	N/D	516	144	345	504	168	417	116	366	498	403	153	551	400	350	303	281	140	492	6147	5	3	4	5	3	4	3	4	5	4	3	5	4	4	4	4	3	5	7	9	13	15	1	3	17	11	5	6	8	4	2	14	16	18	10	12
+CRC-GU-0001-01-04	CRC-GU-0001-01	Gold	Gold	72	N/D	N/D	446	122	326	470	151	356	101	357	467	375	124	513	376	301	265	241	128	460	5579	5	3	4	5	3	4	3	4	5	4	3	5	4	4	4	4	3	5	7	9	13	15	1	3	17	11	5	6	8	4	2	14	16	18	10	12
+CRC-GU-0001-01-05	CRC-GU-0001-01	Red	Red	72	N/D	N/D	374	104	269	441	126	314	78	288	415	320	98	447	359	268	244	226	117	392	4880	5	3	4	5	3	4	3	4	5	4	3	5	4	4	4	4	3	5	7	9	13	15	1	3	17	11	5	6	8	4	2	14	16	18	10	12
+CUW-CU-0001-01-01	CUW-CU-0001-01	Tips	Black	72	74.6	133	386	552	170	376	484	316	140	550	396	402	433	585	213	386	466	182	484	425	6946	4	5	3	4	4	4	3	5	4	4	4	5	3	4	4	3	5	4	5	3	17	11	1	13	15	7	9	12	4	6	8	18	2	16	14	10
+CUW-CU-0001-01-02	CUW-CU-0001-01	Back	Blue	72	73	130	358	544	160	362	464	303	131	539	376	368	415	540	205	371	431	172	447	412	6598	4	5	3	4	4	4	3	5	4	4	4	5	3	4	4	3	5	4	5	3	17	11	1	13	15	7	9	12	4	6	8	18	2	16	14	10
+CUW-CU-0001-01-03	CUW-CU-0001-01	Middle	White	72	70.9	126	336	487	152	311	428	291	115	511	355	358	400	526	175	322	423	148	437	404	6179	4	5	3	4	4	4	3	5	4	4	4	5	3	4	4	3	5	4	5	3	17	11	1	13	15	7	9	12	4	6	8	18	2	16	14	10
+CUW-CU-0001-01-04	CUW-CU-0001-01	Front	Gold	72	68.5	113	278	443	121	287	417	234	102	475	315	332	356	461	149	283	390	100	410	389	5542	4	5	3	4	4	4	3	5	4	4	4	5	3	4	4	3	5	4	5	3	17	11	1	13	15	7	9	12	4	6	8	18	2	16	14	10
+CUW-CU-0001-01-05	CUW-CU-0001-01	Front (L)	Gold	72	73.1	124	278	443	121	287	417	234	102	475	315	332	356	461	149	283	390	100	410	389	5542	4	5	3	4	4	4	3	5	4	4	4	5	3	4	4	3	5	4	5	3	17	11	1	13	15	7	9	12	4	6	8	18	2	16	14	10
+CUW-CU-0001-01-06	CUW-CU-0001-01	Forward (L)	Red	72	69.9	116	225	429	109	248	383	193	103	428	273	291	314	424	113	242	353	88	370	358	4944	4	5	3	4	4	4	3	5	4	4	4	5	3	4	4	3	5	4	5	3	17	11	1	13	15	7	9	12	4	6	8	18	2	16	14	10
+DOM-AL-0005-01-01	DOM-AL-0005-01	Gold	Gold	72	N/D	N/D	348	181	569	373	198	415	543	447	306	622	440	434	204	463	482	208	582	470	7285	4	3	5	4	3	4	5	4	4	5	4	4	3	4	4	3	5	4	12	16	2	6	18	10	4	8	14	1	13	11	17	5	9	15	3	7
+DOM-AL-0005-01-02	DOM-AL-0005-01	Blue	Blue	72	N/D	N/D	330	154	532	363	189	398	534	403	300	589	406	421	200	448	443	183	521	441	6855	4	3	5	4	3	4	5	4	4	5	4	4	3	4	4	3	5	4	12	16	2	6	18	10	4	8	14	1	13	11	17	5	9	15	3	7
+DOM-AL-0005-01-03	DOM-AL-0005-01	White	White	72	N/D	N/D	316	141	498	343	167	377	475	392	284	556	401	372	173	418	425	173	503	434	6448	4	3	5	4	3	4	5	4	4	5	4	4	3	4	4	3	5	4	12	16	2	6	18	10	4	8	14	1	13	11	17	5	9	15	3	7
+DOM-AL-0005-01-04	DOM-AL-0005-01	Red	Red	72	N/D	N/D	278	104	474	264	121	336	412	328	246	513	370	337	140	357	405	150	478	399	5712	4	3	5	4	3	4	5	4	4	5	4	4	3	4	4	3	5	4	12	16	2	6	18	10	4	8	14	1	13	11	17	5	9	15	3	7
+DOM-AL-0005-02-01	DOM-AL-0005-02	Blue	Blue	36	N/D	N/D	441	309	136	507	410	165	572	187	476	~	~	~	~	~	~	~	~	~	3203	4	4	3	5	4	3	5	3	5	~	~	~	~	~	~	~	~	~	1	8	9	4	2	6	3	7	5	~	~	~	~	~	~	~	~	~
+DOM-AL-0005-02-02	DOM-AL-0005-02	White	White	36	N/D	N/D	404	277	120	478	386	136	536	158	433	~	~	~	~	~	~	~	~	~	2928	4	4	3	5	4	3	5	3	5	~	~	~	~	~	~	~	~	~	1	8	9	4	2	6	3	7	5	~	~	~	~	~	~	~	~	~
+DOM-AL-0005-02-03	DOM-AL-0005-02	Red	Red	36	N/D	N/D	368	264	96	442	343	111	501	126	411	~	~	~	~	~	~	~	~	~	2662	4	4	3	5	4	3	5	3	5	~	~	~	~	~	~	~	~	~	1	8	9	4	2	6	3	7	5	~	~	~	~	~	~	~	~	~
+MEX-QR-0006-01-01	MEX-QR-0006-01	Boox	Black	72	73.8	137	554	151	463	438	428	389	116	554	416	200	360	451	532	452	155	521	386	458	7024	5	3	4	4	4	4	3	5	4	3	4	4	5	4	3	5	4	4	6	18	4	14	10	8	16	2	12	13	15	3	9	1	17	5	11	7
+MEX-QR-0006-01-02	MEX-QR-0006-01	Sak	Blue	72	71.7	131	532	142	439	406	414	360	110	521	384	171	333	426	503	415	144	485	352	425	6562	5	3	4	4	4	4	3	5	4	3	4	4	5	4	3	5	4	4	6	18	4	14	10	8	16	2	12	13	15	3	9	1	17	5	11	7
+MEX-QR-0006-01-03	MEX-QR-0006-01	Yaax	White	72	69.5	123	509	131	413	376	394	312	104	500	374	144	299	403	451	387	128	471	315	412	6123	5	3	4	4	4	4	3	5	4	3	4	4	5	4	3	5	4	4	6	18	4	14	10	8	16	2	12	13	15	3	9	1	17	5	11	7
+MEX-QR-0006-01-04	MEX-QR-0006-01	Chak (L)	Red	72	69	119	438	93	344	309	315	244	77	443	326	102	229	339	386	335	98	402	254	344	5078	5	3	4	4	4	4	3	5	4	3	4	4	5	4	3	5	4	4	6	18	4	14	10	8	16	2	12	13	15	3	9	1	17	5	11	7
+USA-FL-00011-01-01	USA-FL-00011-01	Gold	Gold	72	72.2	136	529	407	219	401	158	494	373	401	433	403	514	350	361	342	160	148	390	484	6567	5	4	3	4	3	5	4	4	4	4	5	4	4	4	3	3	4	5	7	11	15	1	17	9	13	5	3	2	4	12	6	14	16	18	10	8
+USA-FL-00011-01-02	USA-FL-00011-01	Blue	Blue	72	70.3	130	492	359	186	373	143	455	344	372	391	388	499	325	346	326	143	141	373	474	6130	5	4	3	4	3	5	4	4	4	4	5	4	4	4	3	3	4	5	7	11	15	1	17	9	13	5	3	2	4	12	6	14	16	18	10	8
+USA-FL-00011-01-03	USA-FL-00011-01	Blue/White	Turquoise	72	69.4	129	492	359	164	338	143	455	332	372	380	338	499	325	322	326	143	141	342	474	5945	5	4	3	4	3	5	4	4	4	4	5	4	4	4	3	3	4	5	3	11	15	1	17	9	5	13	7	4	2	14	6	12	16	18	10	8
+USA-FL-00011-01-04	USA-FL-00011-01	White	White	72	67.7	119	442	328	164	338	125	413	332	288	380	338	460	291	322	310	131	131	342	427	5562	5	4	3	4	3	5	4	4	4	4	5	4	4	4	3	3	4	5	3	11	15	1	17	9	5	13	7	4	2	14	6	12	16	18	10	8
+USA-FL-00011-01-05	USA-FL-00011-01	Red/White	Pink	72	70	128	442	275	140	306	107	356	274	263	380	338	419	226	322	271	131	107	342	384	5083	5	4	3	4	3	5	4	4	4	4	5	4	4	4	3	3	4	5	1	13	15	3	17	11	9	7	5	4	2	14	10	12	16	18	8	6
+USA-FL-00011-01-06	USA-FL-00011-01	Red	Red	72	69	121	434	275	140	306	107	356	274	263	313	298	419	226	268	271	123	107	299	384	4863	5	4	3	4	3	5	4	4	4	4	5	4	4	4	3	3	4	5	1	13	15	3	17	11	9	7	5	4	2	14	10	12	16	18	8	6
+USA-FL-00011-02-01	USA-FL-00011-02	Gold	Gold	72	72.4	134	431	540	317	169	397	428	184	342	527	307	500	193	359	401	377	171	441	523	6607	4	5	4	3	4	4	3	4	5	4	5	3	4	4	4	3	4	5	2	8	18	16	14	4	12	6	10	17	3	7	13	5	9	15	1	11
+USA-FL-00011-02-02	USA-FL-00011-02	Blue	Blue	72	69.8	124	396	506	301	155	351	382	147	329	494	280	480	171	287	362	351	167	407	502	6068	4	5	4	3	4	4	3	4	5	4	5	3	4	4	4	3	4	5	2	8	18	16	14	4	12	6	10	17	3	7	13	5	9	15	1	11
+USA-FL-00011-02-03	USA-FL-00011-02	White	White	72	67.9	120	340	465	293	150	345	355	140	273	437	275	459	138	280	350	330	130	333	467	5560	4	5	4	3	4	4	3	4	5	4	5	3	4	4	4	3	4	5	2	8	18	16	14	4	12	6	10	17	3	7	13	5	9	15	1	11
+USA-FL-00011-02-04	USA-FL-00011-02	White (L)	White	72	73.3	129	340	465	293	150	345	355	140	273	437	275	459	138	280	350	330	130	333	467	5560	4	5	4	3	4	4	3	4	5	4	5	3	4	4	4	3	4	5	4	6	18	16	14	8	12	2	10	15	5	9	13	11	17	7	3	1
+USA-FL-00011-02-05	USA-FL-00011-02	Red	Red	72	69	122	322	453	264	113	289	260	84	268	432	270	437	129	263	312	268	110	291	418	4983	4	5	4	3	4	4	3	4	5	4	5	3	4	4	4	3	4	5	4	6	18	16	14	8	12	2	10	15	5	9	13	11	17	7	3	1
+USA-FL-00011-03-01	USA-FL-00011-03	Gold	Gold	70	68.9	133	296	418	397	347	152	178	498	177	537	369	543	291	211	414	187	430	528	135	6108	4	4	4	4	3	3	5	3	5	4	5	4	3	4	3	4	5	3	16	4	8	10	18	14	2	12	6	13	5	15	7	9	11	1	3	17
+USA-FL-00011-03-02	USA-FL-00011-03	Blue	Blue	70	66.6	126	294	364	351	323	137	133	477	141	494	348	492	267	195	377	161	411	494	125	5584	4	4	4	4	3	3	5	3	5	4	5	4	3	4	3	4	5	3	16	4	8	10	18	14	2	12	6	13	5	15	7	9	11	1	3	17
+USA-FL-00011-03-03	USA-FL-00011-03	White	White	70	64.5	114	259	356	322	236	131	129	466	131	442	297	471	251	157	355	149	329	421	105	5007	4	4	4	4	3	3	5	3	5	4	5	4	3	4	3	4	5	3	16	4	8	10	18	14	2	12	6	13	5	15	7	9	11	1	3	17
+USA-FL-00011-03-04	USA-FL-00011-03	White (L)	White	70	69.2	126	259	356	322	236	131	129	466	131	442	297	471	251	157	355	149	329	421	105	5007	4	4	4	4	3	3	5	3	5	4	5	4	3	4	3	4	5	3	10	12	4	18	8	14	2	16	6	11	9	15	13	3	7	1	5	17
+USA-FL-00011-03-05	USA-FL-00011-03	Red	Red	70	65.7	113	228	284	309	224	115	97	411	108	401	261	389	216	109	304	108	278	408	91	4341	4	4	4	4	3	3	5	3	5	4	5	4	3	4	3	4	5	3	10	12	4	18	8	14	2	16	6	11	9	15	13	3	7	1	5	17
+USA-IL-00134-01-01	USA-IL-00134-01	Black	Black	72	73.2	132	369	533	446	204	508	353	402	165	397	329	533	413	185	433	566	180	439	420	6875	4	5	4	3	5	4	4	3	4	4	5	4	3	4	5	3	4	4	15	5	1	9	11	13	7	17	3	18	8	10	16	6	4	12	2	14
+USA-IL-00134-01-02	USA-IL-00134-01	Gold	Gold	72	70.9	127	347	501	416	182	482	333	357	147	377	314	527	390	146	383	529	159	411	385	6386	4	5	4	3	5	4	4	3	4	4	5	4	3	4	5	3	4	4	15	5	1	9	11	13	7	17	3	18	8	10	16	6	4	12	2	14
+USA-IL-00134-01-03	USA-IL-00134-01	Jade	Green	72	72.1	125	313	429	383	145	457	287	318	129	357	272	418	326	114	294	483	133	372	348	5578	4	5	4	3	5	4	4	3	4	4	5	4	3	4	5	3	4	4	11	5	3	17	7	15	9	13	1	18	8	10	16	6	2	12	4	14
+USA-IL-00134-02-01	USA-IL-00134-02	Black	Black	72	72.7	134	386	541	147	339	420	505	174	361	402	440	512	348	214	382	469	557	159	406	6762	4	5	3	4	4	5	3	4	4	4	5	4	3	4	4	5	3	4	14	4	18	10	8	12	16	6	2	1	13	11	15	9	3	7	17	5
+USA-IL-00134-02-02	USA-IL-00134-02	Gold	Gold	72	70.9	130	359	522	136	325	401	493	162	348	380	408	481	327	186	364	429	535	133	372	6361	4	5	3	4	4	5	3	4	4	4	5	4	3	4	4	5	3	4	14	4	18	10	8	12	16	6	2	1	13	11	15	9	3	7	17	5
+USA-IL-00134-02-03	USA-IL-00134-02	Jade	Green	72	72.3	129	321	488	105	292	356	449	131	307	341	357	426	284	143	328	370	463	107	341	5609	4	5	3	4	4	5	3	4	4	4	5	4	3	4	4	5	3	4	16	4	18	12	8	6	14	10	2	1	11	15	9	13	5	3	17	7
+USA-IL-00134-03-01	USA-IL-00134-03	Black	Black	34	33.2	117	357	150	282	322	500	153	402	149	333	~	~	~	~	~	~	~	~	~	2648	4	3	4	4	5	3	4	3	4	~	~	~	~	~	~	~	~	~	3	6	7	4	2	8	1	9	5	~	~	~	~	~	~	~	~	~
+USA-IL-00134-03-02	USA-IL-00134-03	Gold	Gold	34	32.2	114	342	131	267	311	466	134	376	124	310	~	~	~	~	~	~	~	~	~	2461	4	3	4	4	5	3	4	3	4	~	~	~	~	~	~	~	~	~	3	6	7	4	2	8	1	9	5	~	~	~	~	~	~	~	~	~
+USA-IL-00134-03-03	USA-IL-00134-03	Jade	Green	34	33.3	119	314	114	238	291	438	121	343	104	292	~	~	~	~	~	~	~	~	~	2255	4	3	4	4	5	3	4	3	4	~	~	~	~	~	~	~	~	~	3	6	7	4	2	8	1	9	5	~	~	~	~	~	~	~	~	~
+USA-IL-00134-04-01	USA-IL-00134-04	4 Stars	Black	72	73.8	141	407	549	180	376	437	505	193	372	410	396	163	499	442	357	197	398	407	532	6820	4	5	3	4	4	5	3	4	4	4	3	5	4	4	3	4	4	5	10	8	18	14	2	6	12	16	4	5	17	13	1	15	9	11	3	7
+USA-IL-00134-04-02	USA-IL-00134-04	3 Stars	Blue	72	71.9	136	378	528	143	354	418	479	173	351	390	361	152	466	423	341	189	380	398	510	6434	4	5	3	4	4	5	3	4	4	4	3	5	4	4	3	4	4	5	10	8	18	14	2	6	12	16	4	5	17	13	1	15	9	11	3	7
+USA-IL-00134-04-03	USA-IL-00134-04	2 Stars	White	72	69.7	131	346	501	133	325	396	459	124	325	376	354	141	444	383	339	168	354	367	471	6006	4	5	3	4	4	5	3	4	4	4	3	5	4	4	3	4	4	5	10	8	18	14	2	6	12	16	4	5	17	13	1	15	9	11	3	7
+USA-IL-00134-04-04	USA-IL-00134-04	2 Stars (L)	White	72	74.9	135	346	501	133	325	396	459	124	325	376	354	141	444	383	339	168	354	367	471	6006	4	5	3	4	4	5	3	4	4	4	3	5	4	4	3	4	4	5	10	8	18	14	2	6	12	16	4	5	17	13	1	15	9	11	3	7
+USA-IL-00134-04-05	USA-IL-00134-04	1 Star	Red	72	71.2	126	285	452	106	298	350	436	108	300	315	326	100	410	346	313	147	305	323	417	5337	4	5	3	4	4	5	3	4	4	4	3	5	4	4	3	4	4	5	10	8	18	14	2	6	12	16	4	5	17	13	1	15	9	11	3	7
+\.
+
+
+--
+-- TOC entry 2895 (class 0 OID 24829)
+-- Dependencies: 199
+-- Data for Name: GolfCourses; Type: TABLE DATA; Schema: public; Owner: statsadmin
+--
+
+COPY public."GolfCourses" (course_id, facility_id, course_name, holes, par, course_type, course_architect, open_date, guest_policy, weekday_price, weekend_price, twilight_price, fairway, green, currency) FROM stdin;
+BHS-AB-0001-01	BHS-AB-0001	Treasure Cay	18	72	Tropical	Dick Wilson	1968	Open	120	120	120	N/D	N/D	BSD
+BRA-AM-0002-01	BRA-AM-0002	Amazonia	18	72	Parkland	N/D	N/D	Closed	~	~	~	N/D	N/D	BRL
+CAN-AL-0001-01	CAN-AL-0001	Stanley Thompson	18	71	Mountain	Stanley Thompson	1928	Open	191	191	191	N/D	N/D	CAD
+CAN-AL-0001-02	CAN-AL-0001	Tunnel Mountain	9	36	Mountain	Cornish and Robinson	1989	Open	80	80	80	N/D	N/D	CAD
+COL-AN-0004-01	COL-AN-0004	Macarena	18	72	Parkland	N/D	1973	Open	N/D	N/D	N/D	N/D	N/D	COP
+COL-AN-0004-02	COL-AN-0004	Rodeo	18	72	Parkland	N/D	1954	Open	N/D	N/D	N/D	N/D	N/D	COP
+CRC-GU-0001-01	CRC-GU-0001	Peninsula Papagayo	18	72	Parkland	Arnold Palmer	2004	Open	230	230	165	N/D	N/D	USD
+CUW-CU-0001-01	CUW-CU-0001	Old Quarry	18	72	Parkland	N/D	2010	Open	196	196	118	N/D	N/D	USD
+DOM-AL-0005-01	DOM-AL-0005	Cocotal	18	72	Parkland	Jose Pepe Gancedo (SP)	2000	Open	119	119	43	N/D	N/D	USD
+DOM-AL-0005-02	DOM-AL-0005	Benjamina	9	36	Parkland	Jose Pepe Gancedo (SP)	N/D	Open	69	69	69	N/D	N/D	USD
+MEX-QR-0006-01	MEX-QR-0006	El Cameleon	18	72	Tropical	Greg Norman	2004	Open	280	280	180	Paspalum	Paspalum	USD
+USA-FL-00011-01	USA-FL-00011	Long Point	18	72	Parkland	Tom Fazio	1987	Closed	~	~	~	N/D	N/D	USD
+USA-FL-00011-02	USA-FL-00011	Oak Marsh	18	72	Parkland	Pete Dye	1972	Open	150	150	150	N/D	N/D	USD
+USA-FL-00011-03	USA-FL-00011	Ocean Links	18	70	Oceanfront	Bobby Weed	1973	Open	120	120	120	N/D	N/D	USD
+USA-IL-00134-01	USA-IL-00134	North	18	72	Parkland	Roger Packard	1977	Open	115	115	55	Penncross Bent	Blue	USD
+USA-IL-00134-02	USA-IL-00134	South	18	72	Parkland	Roger Packard	1984	Open	115	115	55	Penncross Bent	Blue	USD
+USA-IL-00134-03	USA-IL-00134	East	9	34	Parkland	Roger Packard	1992	Open	50	50	30	Penncross Bent	Blue	USD
+USA-IL-00134-04	USA-IL-00134	The General	18	72	Parkland	Andy North/Roger Packard	1997	Open	135	135	60	Pennlinks Bent	Pennlinks Bent	USD
+\.
+
+
+--
+-- TOC entry 2897 (class 0 OID 24845)
+-- Dependencies: 201
+-- Data for Name: UserTypes; Type: TABLE DATA; Schema: public; Owner: statsadmin
+--
+
+COPY public."UserTypes" (id, name) FROM stdin;
+1	Administrator
+2	Instructor
+3	Player
+\.
+
+
+--
+-- TOC entry 2893 (class 0 OID 24812)
+-- Dependencies: 197
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: statsadmin
+--
+
+COPY public."Users" (id, name, active, username, password, email, type) FROM stdin;
+1	David Caldwell	t	david	black!2go	david.m.caldwell@gmail.com	1
+2	Zachary Caldwell	t	zach	black!2go	zach.a.caldwell@gmail.com	3
+3	Madison Caldwell	t	maddi	black!2go	maddi.caldwell@gmail.com	3
+\.
+
+
+--
+-- TOC entry 2904 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: Users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: statsadmin
+--
+
+SELECT pg_catalog.setval('public."Users_id_seq"', 1, false);
+
+
+--
+-- TOC entry 2770 (class 2606 OID 24849)
+-- Name: UserTypes PK_5952b0870823f9cdb66f077d1fe; Type: CONSTRAINT; Schema: public; Owner: statsadmin
+--
+
+ALTER TABLE ONLY public."UserTypes"
+    ADD CONSTRAINT "PK_5952b0870823f9cdb66f077d1fe" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2764 (class 2606 OID 24828)
+-- Name: GolfClubs PK_7af5f6c1903e7ea74f7661e8844; Type: CONSTRAINT; Schema: public; Owner: statsadmin
+--
+
+ALTER TABLE ONLY public."GolfClubs"
+    ADD CONSTRAINT "PK_7af5f6c1903e7ea74f7661e8844" PRIMARY KEY (facility_id);
+
+
+--
+-- TOC entry 2762 (class 2606 OID 24820)
+-- Name: Users PK_ac3c96e3c912cbda773b7c7edc9; Type: CONSTRAINT; Schema: public; Owner: statsadmin
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "PK_ac3c96e3c912cbda773b7c7edc9" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2766 (class 2606 OID 24836)
+-- Name: GolfCourses PK_b62d313e0e1f34f3039c47730fe; Type: CONSTRAINT; Schema: public; Owner: statsadmin
+--
+
+ALTER TABLE ONLY public."GolfCourses"
+    ADD CONSTRAINT "PK_b62d313e0e1f34f3039c47730fe" PRIMARY KEY (course_id);
+
+
+--
+-- TOC entry 2768 (class 2606 OID 24844)
+-- Name: GolfCourseTees PK_f09b2965df7f529a7bc45a4bb42; Type: CONSTRAINT; Schema: public; Owner: statsadmin
+--
+
+ALTER TABLE ONLY public."GolfCourseTees"
+    ADD CONSTRAINT "PK_f09b2965df7f529a7bc45a4bb42" PRIMARY KEY (tee_id);
+
+
+-- Completed on 2019-04-08 12:07:50 EDT
+
+--
+-- PostgreSQL database dump complete
+--
+
